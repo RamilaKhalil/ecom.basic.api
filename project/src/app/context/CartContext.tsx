@@ -1,5 +1,5 @@
 "use client"
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useState, ReactNode } from "react";
 
 interface CartItem {
   productName: string;
@@ -8,39 +8,24 @@ interface CartItem {
   quantity: number;
 }
 
-interface CartContextType {
+interface CartContextProps {
   cart: CartItem[];
   addToCart: (item: CartItem) => void;
   removeFromCart: (productName: string) => void;
-  updateQuantity: (productName: string, quantity: number) => void;
+  updateQuantity: (productName: string, quantity: number) => void; // Add this
 }
 
-const CartContext = createContext<CartContextType | undefined>(undefined);
+const CartContext = createContext<CartContextProps | undefined>(undefined);
 
-export const useCart = () => {
-  const context = useContext(CartContext);
-  if (!context) {
-    throw new Error("useCart must be used within a CartProvider");
-  }
-  return context;
-};
+interface CartProviderProps {
+  children: ReactNode;
+}
 
-export const CartProvider: React.FC = ({ children }) => {
+export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
   const [cart, setCart] = useState<CartItem[]>([]);
 
   const addToCart = (item: CartItem) => {
-    setCart((prevCart) => {
-      const existingItem = prevCart.find((i) => i.productName === item.productName);
-      if (existingItem) {
-        return prevCart.map((i) =>
-          i.productName === item.productName
-            ? { ...i, quantity: i.quantity + 1 }
-            : i
-        );
-      } else {
-        return [...prevCart, item];
-      }
-    });
+    setCart((prevCart) => [...prevCart, item]);
   };
 
   const removeFromCart = (productName: string) => {
@@ -60,4 +45,12 @@ export const CartProvider: React.FC = ({ children }) => {
       {children}
     </CartContext.Provider>
   );
+};
+
+export const useCart = () => {
+  const context = useContext(CartContext);
+  if (!context) {
+    throw new Error("useCart must be used within a CartProvider");
+  }
+  return context;
 };

@@ -347,7 +347,13 @@
 import Link from "next/link";
 
 const fetchProducts = async () => {
-  const res = await fetch("http://localhost:3000/api/products", { cache: "no-store" });
+  const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+  const res = await fetch(`${baseUrl}/api/products`, { cache: "no-store" });
+
+  // if (!res.ok) {
+  //   throw new Error("Failed to fetch products");
+  // }
+
   const data = await res.json();
 
   if (!data.success) {
@@ -379,7 +385,9 @@ export default async function ShoesPage() {
               <p className="text-gray-600">{product.category}</p>
               <p className="text-gray-800 font-bold">₹{product.price}</p>
               <p className="text-sm text-gray-500">{product.status}</p>
-              <Link href={`/Product/${encodeURIComponent(product.productName)}`}>
+              <Link
+                href={`/Product/${encodeURIComponent(product.productName)}`}
+              >
                 <button className="mt-4 bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800">
                   See More
                 </button>
