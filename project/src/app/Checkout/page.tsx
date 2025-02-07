@@ -5,7 +5,7 @@ const OrderPage = () => {
           
           <div>
             <h3 className="text-xl font-semibold mb-4">How would you like to get your order?</h3>
-            <p className="text-sm mb-4 text-gray-500"> Customs regulation for India require a copy of the recipients KYC. The address on the KYC needs to match the shipping address. Our courier will contact you via SMS/email to obtain a copy of your KYC. The KYC will be stored securely and used solely for the purpose of clearing customs (including sharing it with customs officials) for all orders and returns. If your KYC does not match your shipping address, please click the link for more information.{' '}
+            <p className="text-sm mb-4 text-gray-500"> Customs regulation for Pakistan require a copy of the recipients KYC. The address on the KYC needs to match the shipping address. Our courier will contact you via SMS/email to obtain a copy of your KYC. The KYC will be stored securely and used solely for the purpose of clearing customs (including sharing it with customs officials) for all orders and returns. If your KYC does not match your shipping address, please click the link for more information.{' '}
               <a href="#" className="text-blue-500 underline">Learn More</a>
             </p>
   
